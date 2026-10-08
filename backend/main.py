@@ -8,6 +8,18 @@ from pydantic import BaseModel
 
 app = FastAPI(title="Symulator Dylematu Więźnia API")
 
+ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "http://localhost:3000")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[ALLOWED_ORIGIN],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+SECRET_API_KEY = os.getenv("SECRET_API_KEY", "domyslny-tajny-klucz-lokalny")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -249,7 +261,12 @@ def turniej_wyspowy(liczba_wysp=5, wielkosc_wyspy=40, liczba_epok=1000, co_ile_k
             print("="*85 + "\n")
 
 @app.post("/api/symulacja")
-async def uruchom_symulacje(parametry: ParametrySymulacji):
+async def uruchom_symulacje(parametry: ParametrySymulacji, x_api_key: str = Header(None)):
+    if x_api_key != SECRET_API_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="Brak autoryzacji: Nieprawidłowy lub brakujący klucz API."
+        )
     async def generator_epok():
         wyspy = [[Agent() for _ in range(parametry.wielkosc_wyspy)] for _ in range(parametry.liczba_wysp)]
 
