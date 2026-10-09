@@ -375,3 +375,7 @@ async def uruchom_symulacje(parametry: ParametrySymulacji, x_api_key: str = Head
             await asyncio.sleep(0.001)
 
     return StreamingResponse(generator_epok(), media_type="text/event-stream")
+
+
+
+#testowa zmiana do ponownego wdrożenia 
