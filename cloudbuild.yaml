@@ -1,18 +1,20 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'build'
-    - '-t'
-    - 'gcr.io/$PROJECT_ID/my-backend'
-    - '-f'
-    - 'backend/Dockerfile'
-    - 'backend'
-  
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/dylemat-api']
-  
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/dylemat-api'
+      - '-f'
+      - 'backend/Dockerfile'
+      - 'backend'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/dylemat-api'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
@@ -21,5 +23,6 @@ steps:
       - '--region=europe-central2'
       - '--platform=managed'
       - '--allow-unauthenticated'
+
 images:
   - 'gcr.io/$PROJECT_ID/dylemat-api'
