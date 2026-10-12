@@ -1,6 +1,8 @@
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    console.log("Vercel widzi URL:", process.env.CLOUD_RUN_URL);
+    console.log("Długość klucza w Vercelu to:", process.env.CLOUD_RUN_SECRET ? process.env.CLOUD_RUN_SECRET.length : 0);
     
     if (!process.env.CLOUD_RUN_URL) {
       console.error("[PROXY] Błąd: Brak zmiennej CLOUD_RUN_URL");
