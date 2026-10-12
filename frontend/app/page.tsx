@@ -49,10 +49,10 @@ export default function Home() {
     abortControllerRef.current = new AbortController();
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/symulacja`, {
+      const response = await fetch(`/api/symulacja`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(simParams), 
+        body: JSON.stringify(simParams),
         signal: abortControllerRef.current.signal
       });
 
