@@ -27,8 +27,5 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/dylemat-api'
 
-steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/twoja-nazwa-obrazu', '.']
 options:
   logging: CLOUD_LOGGING_ONLY
