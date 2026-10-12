@@ -27,7 +27,7 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/dylemat-api'
 
-logs_bucket: 'gs://nazwa-twojego-nowego-bucketa'
+logs_bucket: 'gs://dylemat-build-logs-bucket'
 
 options:
   logging: CLOUD_LOGGING_ONLY
