@@ -21,14 +21,6 @@ app.add_middleware(
 
 SECRET_API_KEY = os.getenv("SECRET_API_KEY", "domyslny-tajny-klucz-lokalny")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"], 
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 class ParametrySymulacji(BaseModel):
     liczba_wysp: int = 5
     wielkosc_wyspy: int = 40
@@ -376,7 +368,3 @@ async def uruchom_symulacje(parametry: ParametrySymulacji, x_api_key: str = Head
             await asyncio.sleep(0.001)
 
     return StreamingResponse(generator_epok(), media_type="text/event-stream")
-
-
-
-#testowa zmiana do ponownego wdrożenia 
